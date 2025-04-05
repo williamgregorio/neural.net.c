@@ -116,8 +116,14 @@ int main(void) {
       }
 
       // apply the changes for output weights
+      for (int j = 0; j < outputs; j++){
+        output_layer_bias[j] += delta_output[j] * lr;
+        for (int k = 0; k < hidden_nodes; k++){
+          output_weights[k][j] = += hidden_layer[k] * delta_output[j] * lr;
+        }
+      }
 
-      kk2
+
     }
   }
 
