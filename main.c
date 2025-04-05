@@ -22,7 +22,7 @@ double derivative_sigmoid(double x) {
 
 void shuffle_set(int *array, size_t n) {
   size_t i;
-  for (i = 0; i < n; i++){
+  for (int i = 0; i < n; i++){
     size_t j = i + rand() / (RAND_MAX / (n - 1) + 1);
     int t = array[j];
     array[j] = array[i];
@@ -45,21 +45,38 @@ int main(void) {
   double training_inputs[training_sets][inputs] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}};
   double training_outputs[training_sets][outputs] = {{0.0f}, {1.0f}, {1.0f}, {0.0f}};
 
-  for (i = 0; i < inputs; i++){
-    for (j = 0; i < hidden_nodes; j++){
+  for (int i = 0; i < inputs; i++){
+    for (int j = 0; i < hidden_nodes; j++){
       hidden_weights[i][j] = weights();
     }
   }
 
-  for (i = 0; i < hidden_nodes; i++){
-    for (j = 0; i < outputs; j++){
+  for (int i = 0; i < hidden_nodes; i++){
+    for (int j = 0; i < outputs; j++){
       output_weights[i][j] = weights();
     }
   }
   
-  for (i = 0; i < outputs; i++){
+  for (int i = 0; i < outputs; i++){
     output_layer_bias[i] = weights();
   }
 
+
+  int training_set_order[] = {0,1,2,3};
+  int epochs = 10000;
+
+  // training neural on number of epochs
+
+  for (epoch = 0; epoch < epochs; epoch++){
+    shuffle_set(training_set_order, training_sets);
+    for (int x = 0; x < training_sets; x++){
+      int i = training_set_order[x];
+
+      // hidden layer activation
+      for (int j = 0; j < hidden_nodes; j++) {
+
+      }
+    }
+  }
 
 }
