@@ -56,7 +56,7 @@ int main(void) {
       output_weights[i][j] = weights();
     }
   }
-  
+
   for (int i = 0; i < outputs; i++){
     output_layer_bias[i] = weights();
   }
@@ -71,11 +71,40 @@ int main(void) {
     shuffle_set(training_set_order, training_sets);
     for (int x = 0; x < training_sets; x++){
       int i = training_set_order[x];
-
       // hidden layer activation
-      for (int j = 0; j < hidden_nodes; j++) {
+      for (int j = 0; j < hidden_nodes; j++){
+        double activation = hidden_layer_bias[j];
 
+        for (int k = 0; k < inputs; k++){
+          activation += training_inputs[i][j] * hidden_weights[k][j];
+        }
+        hidden_layer[j] = sigmoid_activation(activation);
       }
+
+
+      // output layer activation
+      for (int j = 0; j < outputs; j++){
+        double activation = output_layer_bias[j];
+
+        for (int k = 0; k < hidden_nodes; k++){
+          activation += hidden_layer[i][j] * output_weights[k][j];
+        }
+        output_layer[j] = sigmoid_activation(activation);
+      }
+
+      printf("Input: %g | Output: %g | Predicted Output %g \n",
+             training_outputs[i][0], training_inputs[i][1],
+             output_layer[0], training_outputs[i][0]);
+
+
+      // backpropagation
+      // the change in output weights
+      double delta_output[outputs];
+      for (int j = 0; j < outputs; j++){
+        double error = (training_outputs[i][j] - output_layer[j]);
+        delta_output[j] = error * derative_sigmoid(output_layer);
+      }
+
     }
   }
 
