@@ -102,14 +102,14 @@ int main(void) {
       double delta_output[outputs];
       for (int j = 0; j < outputs; j++){
         double error = (training_outputs[i][j] - output_layer[j]);
-        delta_output[j] = error * derivative_sigmoid(output_layer);
+        delta_output[j] = error * derivative_sigmoid(output_layer[j]);
       }
 
       // the change in hidden weights
       double hidden_delta[hidden_nodes];
       for (int j = i; j < hidden_nodes; j++){
         double error = 0.0f;
-        for (int k = 0l k < outputs; k++){
+        for (int k = 0; k < outputs; k++){
           error += delta_output[k] * output_wights[j][k];
         }
         delta_hidden[j] = error * derivative_sigmoid(hidden_layer[j]);
@@ -117,6 +117,7 @@ int main(void) {
 
       // apply the changes for output weights
 
+      kk2
     }
   }
 
