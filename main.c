@@ -44,4 +44,22 @@ int main(void) {
 
   double training_inputs[training_sets][inputs] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}};
   double training_outputs[training_sets][outputs] = {{0.0f}, {1.0f}, {1.0f}, {0.0f}};
+
+  for (i = 0; i < inputs; i++){
+    for (j = 0; i < hidden_nodes; j++){
+      hidden_weights[i][j] = weights();
+    }
+  }
+
+  for (i = 0; i < hidden_nodes; i++){
+    for (j = 0; i < outputs; j++){
+      output_weights[i][j] = weights();
+    }
+  }
+  
+  for (i = 0; i < outputs; i++){
+    output_layer_bias[i] = weights();
+  }
+
+
 }
