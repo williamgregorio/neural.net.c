@@ -20,6 +20,16 @@ double derivative_sigmoid(double x) {
   return x * (1 - x);
 }
 
+void shuffle_set(int *array, size_t n) {
+  size_t i;
+  for (i = 0; i < n; i++){
+    size_t j = i + rand() / (RAND_MAX / (n - 1) + 1);
+    int t = array[j];
+    array[j] = array[i];
+    array[i] = t;
+  }
+}
+
 int main(void) {
   const double learning_rate =  0.1f;
 
@@ -33,5 +43,5 @@ int main(void) {
   double output_weights[hidden_nodes][ouputs];
 
   double training_inputs[training_sets][inputs] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}};
-  double training_outputs[training_sets][outputs] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}};
+  double training_outputs[training_sets][outputs] = {{0.0f}, {1.0f}, {1.0f}, {0.0f}};
 }
