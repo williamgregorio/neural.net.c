@@ -40,7 +40,7 @@ int main(void) {
   double output_layer_bias[outputs];
 
   double hidden_weights[inputs][hidden_nodes];
-  double output_weights[hidden_nodes][ouputs];
+  double output_weights[hidden_nodes][outputs];
 
   double training_inputs[training_sets][inputs] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}};
   double training_outputs[training_sets][outputs] = {{0.0f}, {1.0f}, {1.0f}, {0.0f}};
@@ -67,7 +67,7 @@ int main(void) {
 
   // training neural on number of epochs
 
-  for (epoch = 0; epoch < epochs; epoch++){
+  for (int epoch = 0; epoch < epochs; epoch++){
     shuffle_set(training_set_order, training_sets);
     for (int x = 0; x < training_sets; x++){
       int i = training_set_order[x];
@@ -96,7 +96,6 @@ int main(void) {
              training_outputs[i][0], training_inputs[i][1],
              output_layer[0], training_outputs[i][0]);
 
-
       // backpropagation
       // the change in output weights
       double delta_output[outputs];
@@ -117,9 +116,18 @@ int main(void) {
 
       // apply the changes for output weights
       for (int j = 0; j < outputs; j++){
-        output_layer_bias[j] += delta_output[j] * lr;
+        output_layer_bias[j] += delta_output[j] * learning_rate;
         for (int k = 0; k < hidden_nodes; k++){
-          output_weights[k][j] = += hidden_layer[k] * delta_output[j] * lr;
+          output_weights[k][j] = += hidden_layer[k] * delta_output[j] * learning_rate;
+        }
+      }
+
+
+      // apply the changes for hidden weights
+      for (int j = 0; j < hidden_nodes; j++){
+        hidden_layer_bias[j] += delta_hidden[j] * learning_rate;
+        for (int k = 0; k < inputs; k++){
+          hidden_weights[k][j] = += training_inputs[i][k] * delta_hidden[j] * learning_rate;
         }
       }
 
